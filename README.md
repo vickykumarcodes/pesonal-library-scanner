@@ -1,3 +1,6 @@
+## Demo
+![App demo](screenshot/demo.png)
+
 # 📚 Personal Library Scanner
 
 A project I built to scan physical books using a barcode image, fetch their metadata from public APIs, and store them in a local searchable library.
