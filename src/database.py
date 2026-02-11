@@ -46,7 +46,7 @@ def insert_book(book):
                 book["title"],
                 ", ".join(book["authors"]),
                 book.get("publisher"),
-                book.get("published_date"),
+                book.get("published_year"),
                 book.get("source", "unknown"),
             ),
         )
