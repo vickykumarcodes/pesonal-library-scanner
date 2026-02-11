@@ -10,3 +10,4 @@ services:
 
     aptPackages:
       - tesseract-ocr
+      - libzbar0
