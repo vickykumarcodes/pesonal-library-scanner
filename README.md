@@ -89,8 +89,6 @@ You can try the app here:
 
 👉 **[Personal Library Scanner – Live App](https://pesonal-library-scanner-plgfiyv5adwj58gvcdmdns.streamlit.app/)**
 
-*(Replace this link with your deployed Streamlit / Render URL)*
-
 The demo allows you to:
 
 • Upload a barcode image
