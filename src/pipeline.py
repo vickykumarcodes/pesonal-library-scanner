@@ -1,5 +1,5 @@
 from src.barcode import extract_isbn
-from src.app import fetch_book_metadata
+from src.book_api import fetch_book_metadata
 from src.database import insert_book
 
 def scan_only(image_path):
