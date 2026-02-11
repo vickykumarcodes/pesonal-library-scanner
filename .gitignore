@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual env
+venv/
+.env/
+bl_env/
+
+# Database
+library.db
+
+# Temporary files
+*.jpg
+*.png
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
