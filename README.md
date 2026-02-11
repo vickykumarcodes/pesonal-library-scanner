@@ -1,5 +1,7 @@
-## Demo
-![App demo](screenshot/demo.png)
+<p align="center">
+  <img src="screenshot/demo.png" width="700" alt="App demo">
+</p>
+
 
 # 📚 Personal Library Scanner
 
