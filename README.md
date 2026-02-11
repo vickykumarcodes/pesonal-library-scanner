@@ -2,69 +2,72 @@
   <img src="screenshot/demo.png" width="700" alt="App demo">
 </p>
 
-
 # 📚 Personal Library Scanner
 
-A project I built to scan physical books using a barcode image, fetch their metadata from public APIs, and store them in a local searchable library.
+A project I built to bridge my physical bookshelf with a digital library.
 
-The goal was to design a clean pipeline from image → ISBN → metadata → database, instead of just building a UI.
+I wanted something faster and more natural than manually typing book details — so I designed a pipeline that goes from **image → ISBN → metadata → database**.
+
+This project is as much about system design and data validation as it is about the interface.
 
 ---
 
-## 🔍 What it does
+## 🔍 What This App Does
 
-* Detects ISBN from a barcode image using `pyzbar`
-* Falls back to OCR (Tesseract) if barcode detection fails
-* Validates ISBN-13 using checksum logic
-* Fetches metadata from:
+* Scans a book’s ISBN from a barcode image using **pyzbar**
+* Falls back to **OCR (Tesseract)** when barcode detection fails
+* Validates ISBN‑13 using checksum logic
+* Fetches book metadata from:
 
   * Google Books API
   * Open Library API (fallback)
-* Stores books in a local SQLite database
-* Prevents duplicates using a UNIQUE ISBN constraint
-* Provides a Streamlit interface to:
+* Stores books in a local **SQLite** database
+* Prevents duplicate entries with a **UNIQUE ISBN constraint**
+* Provides a **Streamlit interface** to:
 
   * Upload barcode images
   * Review book details before saving
   * Search by title, author, or ISBN
-  * Delete entries
+  * Delete books from the library
 
 ---
 
-## 🧠 Design Approach
+## 🧠 Design Philosophy
 
-The project is structured in layers:
+Rather than building just a UI, I focused on creating a clean, modular architecture.
 
-UI (Streamlit)
+**UI (Streamlit)**
 ↓
-Pipeline (application logic)
+**Pipeline (application logic)**
 ↓
-Services (OCR + API calls)
+**Services (Barcode + OCR + APIs)**
 ↓
-Database (SQLite)
+**Database (SQLite)**
 
 Each module has a single responsibility:
 
-* `streamlit_app.py` → user interface
-* `pipeline.py` → coordinates scanning and storing
-* `barcode.py` / `ocr.py` → ISBN extraction
-* `app.py` → external API communication
-* `database.py` → database schema and CRUD operations
+* `streamlit_app.py` → User interaction
+* `pipeline.py` → Coordinates scanning & storage logic
+* `barcode.py` → Barcode decoding
+* `ocr.py` → OCR-based ISBN extraction
+* `app.py` → External API communication
+* `database.py` → Schema & CRUD operations
 
-The idea was to keep components independent and easy to modify.
+This separation keeps the system easy to debug, extend, and reason about.
 
 ---
 
-## 🧪 ISBN Validation
+## 🧪 ISBN Validation Strategy
 
-OCR output can be noisy.
-To avoid storing invalid data:
+OCR output is often messy and unreliable.
 
-1. A regex pattern loosely detects ISBN-like strings.
-2. The text is normalized to digits only.
-3. ISBN-13 checksum logic verifies correctness.
+To prevent corrupt or invalid entries:
 
-This prevents false positives from random 13-digit numbers.
+1. A regex pattern detects ISBN-like sequences
+2. Text is normalized to digits only
+3. ISBN‑13 checksum verification confirms validity
+
+This ensures random 13‑digit numbers don’t pollute the database.
 
 ---
 
@@ -80,29 +83,45 @@ This prevents false positives from random 13-digit numbers.
 
 ---
 
-## 🚀 How to Run
+## 🌐 Live Demo
 
-1. Install dependencies:
-    pip install -r requirements.txt
+You can try the app here:
 
-2. Run the app:
-    streamlit run streamlit_app.py
+👉 **[Personal Library Scanner – Live App](https://pesonal-library-scanner-plgfiyv5adwj58gvcdmdns.streamlit.app/)**
 
-3. Upload a book barcode image and test.
+*(Replace this link with your deployed Streamlit / Render URL)*
 
----
-📌 Why I Built This
+The demo allows you to:
 
-I built this mainly for myself.
+• Upload a barcode image
+• See extracted ISBN + metadata
+• Save books to the database
+• Search your library
+• Delete ent
 
-I have a personal physical library and wanted a simple way to digitize it without manually typing every book entry. Scanning barcodes felt more natural and scalable than entering titles one by one.
+## 🚀 Running the App Locally
 
-At the same time, I used this as an opportunity to practice:
+1️⃣ Install dependencies:
+  pip install -r requirements.txt
 
--> Working with computer vision libraries
--> Handling messy OCR output
--> Validating data using checksum algorithms
--> Designing a layered backend structure
--> Integrating external APIs with a local database
+2️⃣ Launch Streamlit:
+  streamlit run streamlit_app.py
 
-So this project solves a my personal need while also serving as a project for my portfolio.
+3️⃣ Upload a barcode image and scan.
+
+
+## 📌 Why I Built This
+
+I built this primarily for myself.
+
+I have a growing personal physical library, and manually entering book details felt inefficient and error‑prone. Scanning barcodes felt like a more natural and scalable solution.
+
+At the same time, this project became a practical exercise in:
+
+* Working with computer vision tools
+* Handling noisy OCR output
+* Implementing checksum-based validation
+* Designing a layered application architecture
+* Integrating external APIs with a local database
+
+So while it solves a personal need, it also reflects how I think about building reliable systems — not just interfaces.
